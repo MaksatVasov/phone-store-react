@@ -8,16 +8,13 @@ export function defaultSettings() {
 }
 
 export default function useOrderDetails() {
-
     const [isCityOpen, setCityOpen] = useState(defaultSettings());
     const [isPaymentOpen, setPaymentOpen] = useState(defaultSettings());
-
 
     const { cartItems, sum } = useCartDetails();
     const { isDelivery } = useContext(CartContext);
 
-
-    const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm({
+    const { register, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm({
         defaultValues: {
             locationInput: "Ашхабад",
             paymentInput: "Kaspi Gold",
@@ -32,18 +29,32 @@ export default function useOrderDetails() {
         mode: "onBlur"
     });
 
-    
+    const sendFormData = async (data) => {
+        try {
+            const response = await fetch('https://6a29b31cf59cb8f65f1d812a.mockapi.io/orders', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
 
-    // Следим за значениями для кнопок
+            if (response.ok) {
+                alert('Заказ успешно оформлен! 🎉');
+                reset();
+            } else {
+                alert('Ошибка при отправке.');
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const currentCity = watch("locationInput");
     const currentPayment = watch("paymentInput");
-
 
     const handleClick = (value, inputName, closeSetter) => {
         setValue(inputName, value);
         closeSetter(defaultSettings());
     };
-
 
     function cityListener(event) {
         if (isCityOpen.isOpen) {
@@ -60,7 +71,6 @@ export default function useOrderDetails() {
         });
     }
 
-
     function paymentListener(event) {
         if (isPaymentOpen.isOpen) {
             setPaymentOpen(defaultSettings());
@@ -75,7 +85,6 @@ export default function useOrderDetails() {
             width: target.offsetWidth + "px",
         });
     }
-
 
     return {
         isCityOpen,
@@ -92,6 +101,7 @@ export default function useOrderDetails() {
         currentPayment,
         setPaymentOpen,
         setCityOpen,
-        errors
+        errors,
+        sendFormData
     };
 }

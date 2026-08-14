@@ -1,12 +1,10 @@
-import { useContext } from "react";
-import useCartDetails from "../hooks/useCartDetails";
-import { CartContext } from "./CartContext";
 import { MobileOrderCartItem } from "./MobileOrderCartItem";
 import { DesktopOrderCartItem } from "./DesktopOrderCartItem";
 import useOrderDetails from "../hooks/useOrderDetails";
 
 import pen from "../assets/images/global/pen.png"
 import errorImg from "../assets/images/global/error-icon.png";
+import OrderMap from "./OrderMap";
 
 export default function OrderPage() {
     const {
@@ -24,7 +22,8 @@ export default function OrderPage() {
         handleClick,
         currentCity,
         currentPayment,
-        errors
+        errors,
+        sendFormData
     } = useOrderDetails();
 
 
@@ -63,8 +62,8 @@ export default function OrderPage() {
                         </div>
                     </div>
 
-                    <div id="map" className="mb-4 w-full h-36.5 xl:w-87.5 bg-gray-200 rounded-lg">
-                        {/* Карта */}
+                    <div id="map" className="mb-4 w-full h-36.5  bg-gray-200 rounded-lg">
+                        <OrderMap />
                     </div>
 
                     <div id="address">
@@ -74,7 +73,7 @@ export default function OrderPage() {
                             </h2>
                         </div>
 
-                        <form id="order-form" className="flex flex-col gap-2">
+                        <form onSubmit={handleSubmit(sendFormData)} id="order-form" className="flex flex-col gap-2">
 
 
                             <div className="relative w-full">
@@ -105,7 +104,11 @@ export default function OrderPage() {
                                 <img className="err-icon" src={errorImg} alt="error" />
                                 <input placeholder="Улица/Район" {...register("street", {
                                     required: "Укажите улицу!",
-                                    minLength: { value: 3, message: "Слишком короткое название" }
+                                    minLength: { value: 3, message: "Слишком короткое название" },
+                                    pattern: {
+                                        value: /^[а-яА-ЯёЁa-zA-Z0-9\s.,\-]+$/,
+                                        message: "Поле содержит запрещенные символы."
+                                    }
                                 })} className={`w-full p-2 pr-10 bg-[#e0e0e0] border-none h-11.25 rounded-[10px] outline-none focus:ring-2 focus:ring-gray-400 ${errors.street ? "error" : ""}`} type="text" autoComplete="off" />
                                 <img className="absolute right-3.25 top-1/2 -translate-y-1/2 w-4.25 h-4.25" src={pen} alt="pen" />
                             </div>
@@ -140,9 +143,9 @@ export default function OrderPage() {
                                 <input placeholder="+993..." {...register("phone", {
                                     required: "Заполните поле!",
                                     pattern: {
-                                        value: /^\+993/,
-                                        message: "Номер должен быть в формате +993"
-                                    }
+                                        value: /^\+993\d{8}$/,
+                                        message: "Номер должен быть в формате +993 и содержать только цифры"
+                                    },
                                 })}
                                     className={`w-full p-2 pr-10 bg-[#e0e0e0] border-none h-11.25 rounded-[10px] outline-none focus:ring-2 focus:ring-gray-400 ${errors.phone ? "error" : ""}`} type="tel" autoComplete="off" />
                                 <img className="absolute right-3.25 top-1/2 -translate-y-1/2 w-4.25 h-4.25" src={pen} alt="pen" />
