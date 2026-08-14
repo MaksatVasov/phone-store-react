@@ -1,16 +1,64 @@
-# React + Vite
+# QPICK
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive e-commerce phone store built with React and Vite.
 
-Currently, two official plugins are available:
+## About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+QPICK is a front-end e-commerce project focused on building a realistic shopping experience with React.
 
-## React Compiler
+The project is currently under active development and is also part of my frontend learning journey.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+* Dynamic product rendering from a mock API
+* Product catalog
+* Shopping cart
+* Wishlist
+* Product pages
+* Order form
+* Form validation
+* Responsive design for desktop, tablet, and mobile
+* Reducer-based cart and wishlist state management
+* Custom React hooks
+* Reusable helper functions
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+* React
+* Vite
+* React Router
+* React Hook Form
+* Tailwind CSS
+* Context API
+* `useState`
+* `useEffect`
+* `useMemo`
+* `useRef`
+* `useReducer`
+* Custom Hooks
+* Mock API
+
+## Roadmap
+
+The project is still in development. Planned features include:
+
+* Leaflet map integration
+* Order submission with a POST request
+* Three-language support
+* Zod-based form validation
+* Product review system
+* User registration and authentication
+* TypeScript
+* Next.js
+
+## Current Status
+
+🚧 **Work in Progress**
+
+The project is not deployed yet. Deployment is planned after the main features are completed and the project reaches a production-ready state.
+
+## Learning Goals
+
+This project is part of my progression from Vanilla JavaScript to modern React development.
+
+The goal is not only to build the application, but also to improve my understanding of component architecture, state management, routing, forms, reusable logic, and scalable project structure.
