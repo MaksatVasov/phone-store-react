@@ -3,7 +3,7 @@ import minusIcon from "../assets/images/cart-page/btn-qty-minus.png";
 import plusIcon from "../assets/images/cart-page/btn-qty-plus.png";
 import deleteBtn from "../assets/images/cart-page/delete-bin.png";
 
-import { CartContext } from "./CartContext";
+import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
 export default function CartItem({ item }) {

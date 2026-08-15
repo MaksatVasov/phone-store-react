@@ -4,11 +4,11 @@ import cartEmptyBig from "../assets/images/cart-page/cart-empty-big.webp";
 import truckIcon from "../assets/images/cart-page/Truck.png";
 import mapPreview from "../assets/images/cart-page/map.png";
 
-import { CartContext } from "./CartContext";
+import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
 import useCartDetails from "../hooks/useCartDetails";
-
-import CartItem from "./CartItem";
+import Map from "../components/Map";
+import CartItem from "../components/CartItem";
 
 const containerClassName =
     "container mx-auto w-full px-3 max-w-330";
@@ -56,11 +56,7 @@ function DeliveryPanel() {
             </div>
 
             <div id="map" className="h-36.5 w-full">
-                <img
-                    src={mapPreview}
-                    className="h-full w-full object-cover"
-                    alt="Карта пункта выдачи"
-                />
+                <Map />
             </div>
 
             <div className="relative flex items-center justify-between px-6 py-4">

@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import heartBig from "../assets/images/global/wish-list-heart-big.png";
 import heartSmall from "../assets/images/global/wish-list-heart-small.png";
 
-import { WishListContext } from "./WishListContext";
+import { WishListContext } from "../context/WishListContext";
 import { useContext } from "react";
-import CatalogItem from "./CatalogItem";
+import CatalogItem from "../components/CatalogItem";
 import useWishListProducts from "../hooks/useWishListProducts";
 
 export default function WishListPage() {

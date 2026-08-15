@@ -1,9 +1,9 @@
 import { useContext, useMemo, useState } from "react";
-import { DataContext } from "./DataContext";
+import { DataContext } from "../context/DataContext";
 import { useParams } from "react-router-dom";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 
-import CatalogItem from "./CatalogItem";
+import CatalogItem from "../components/CatalogItem";
 
 export default function CassesPage() {
 

@@ -2,10 +2,10 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import ErrorWindow from "./Error";
-import { UIProvider } from "./UIContext";
-import DataProvider from "./DataContext";
-import WishListProvider from "./WishListContext";
-import CartProvider from "./CartContext";
+import { UIProvider } from "../context/UIContext";
+import DataProvider from "../context/DataContext";
+import WishListProvider from "../context/WishListContext";
+import CartProvider from "../context/CartContext";
 import Sidebar from "./SideBar";
 
 

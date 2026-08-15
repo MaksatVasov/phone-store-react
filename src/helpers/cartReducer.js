@@ -69,6 +69,9 @@ const objOfFucntions = {
 
         return state;
 
+    },
+    "CLEAR_CART": () =>{
+        return [];
     }
 
 }
@@ -83,7 +86,7 @@ export default function cartReducer(state, action) {
     const func = objOfFucntions[type];
 
     if (func) {
-        return func(state, payload.id);
+        return func(state, payload?.id);
     }
 
 

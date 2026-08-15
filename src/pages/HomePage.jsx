@@ -3,13 +3,13 @@ import smallBg from "../assets/images/home-page/background-small.avif";
 import glassCase from "../assets/images/home-page/glass.webp";
 import siliconeCase from "../assets/images/home-page/leather.webp";
 import leatherCase from "../assets/images/home-page/silicone.webp";
-import Loader from "./Loader";
-import CatalogItem from "./CatalogItem";
+import Loader from "../components/Loader";
+import CatalogItem from "../components/CatalogItem";
 
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useMemo } from "react";
 
-import { DataContext } from "./DataContext";
-import { UIContext } from "./UIContext";
+import { DataContext } from "../context/DataContext";
+import { UIContext } from "../context/UIContext";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {

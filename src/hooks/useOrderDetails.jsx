@@ -1,20 +1,20 @@
 import { useContext, useState } from "react";
 import useCartDetails from "./useCartDetails";
-import { CartContext } from "../components/CartContext";
+import { CartContext } from "../context/CartContext";
 import { useForm } from "react-hook-form";
-
-export function defaultSettings() {
-    return { isOpen: false, top: 0, left: 0, width: 0 };
-}
+import promocodes from "../data/phoneCatalog/promocodes.json";
 
 export default function useOrderDetails() {
-    const [isCityOpen, setCityOpen] = useState(defaultSettings());
-    const [isPaymentOpen, setPaymentOpen] = useState(defaultSettings());
+
+    const [isCityOpen, setCityOpen] = useState(false);
+    const [isPaymentOpen, setPaymentOpen] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [appliedPromo, setPromo] = useState(null);
 
     const { cartItems, sum } = useCartDetails();
-    const { isDelivery } = useContext(CartContext);
+    const { isDelivery, dispatchCart } = useContext(CartContext);
 
-    const { register, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, setValue, clearErrors, watch, reset, formState: { errors } } = useForm({
         defaultValues: {
             locationInput: "Ашхабад",
             paymentInput: "Kaspi Gold",
@@ -29,17 +29,40 @@ export default function useOrderDetails() {
         mode: "onBlur"
     });
 
-    const sendFormData = async (data) => {
+    const currentCity = watch("locationInput");
+    const currentPayment = watch("paymentInput");
+    // const currentCode = watch("code");
+
+    const cartSum = isDelivery ? Number(sum) + 499 : Number(sum);
+
+
+
+    let promoSum = 0;
+    if (appliedPromo) {
+        promoSum = appliedPromo.type === "fixed" ? appliedPromo.value : (cartSum * appliedPromo.value) / 100;
+    }
+
+    const overallSum = Math.max(0, Number((cartSum - promoSum).toFixed(2)));
+
+    const onSubmit = async (data) => {
+        const orderPayload = {
+            ...data,
+            items: cartItems,
+            totalPaid: overallSum,
+            discountApplied: promoSum
+        };
+
         try {
             const response = await fetch('https://6a29b31cf59cb8f65f1d812a.mockapi.io/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+                body: JSON.stringify(orderPayload),
             });
 
             if (response.ok) {
-                alert('Заказ успешно оформлен! 🎉');
+                setIsSuccess(true);
                 reset();
+                dispatchCart("CLEAR_CART");
             } else {
                 alert('Ошибка при отправке.');
             }
@@ -48,60 +71,32 @@ export default function useOrderDetails() {
         }
     };
 
-    const currentCity = watch("locationInput");
-    const currentPayment = watch("paymentInput");
-
     const handleClick = (value, inputName, closeSetter) => {
         setValue(inputName, value);
-        closeSetter(defaultSettings());
+        closeSetter(false);
     };
-
-    function cityListener(event) {
-        if (isCityOpen.isOpen) {
-            setCityOpen(defaultSettings());
-            return;
-        }
-
-        const target = event.currentTarget;
-        setCityOpen({
-            isOpen: true,
-            left: target.offsetLeft + "px",
-            top: target.offsetTop + target.offsetHeight + "px",
-            width: target.offsetWidth + "px",
-        });
-    }
-
-    function paymentListener(event) {
-        if (isPaymentOpen.isOpen) {
-            setPaymentOpen(defaultSettings());
-            return;
-        }
-
-        const target = event.currentTarget;
-        setPaymentOpen({
-            isOpen: true,
-            left: target.offsetLeft + "px",
-            top: target.offsetTop + target.offsetHeight + "px",
-            width: target.offsetWidth + "px",
-        });
-    }
 
     return {
         isCityOpen,
+        setCityOpen,
         isPaymentOpen,
+        setPaymentOpen,
         cartItems,
-        sum,
+        cartSum,
         isDelivery,
-        cityListener,
-        paymentListener,
         register,
-        handleSubmit,
+        handleSubmit: handleSubmit(onSubmit),
         handleClick,
         currentCity,
         currentPayment,
-        setPaymentOpen,
-        setCityOpen,
         errors,
-        sendFormData
+        promocodes,
+        promoSum,
+        overallSum,
+        isSuccess,
+        appliedPromo,
+        setPromo,
+        setValue,
+        clearErrors
     };
 }

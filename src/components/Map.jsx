@@ -13,7 +13,7 @@ L.Icon.Default.mergeOptions({
     shadowUrl: markerShadow,
 });
 
-export default function OrderMap() {
+export default function Map() {
     return (
         <MapContainer 
             center={[37.95, 58.38]} 

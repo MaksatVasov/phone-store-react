@@ -1,7 +1,7 @@
 import { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
-import { UIContext } from "./UIContext";
-import { DataContext } from "./DataContext.jsx";
+import { UIContext } from "../context/UIContext";
+import { DataContext } from "../context/DataContext.jsx";
 import { defaultErrorState } from "../helpers/errorHelpers.js";
 export default function ErrorWindow() {
 

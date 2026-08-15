@@ -13,7 +13,6 @@ export default function DataProvider({ children }) {
         try {
             setLoading(true);
             const data = await downloadProducts();
-
             setProducts(data);
         } catch (error) {
             console.log(error.message);

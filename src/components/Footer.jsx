@@ -12,9 +12,12 @@ export default function Footer() {
 
     const isOrderPage = location.pathname === "/order";
 
+    const isCartPage = location.pathname === "/cart";
+
     // console.dir(URL)
     return (
-        <footer className={`container mx-auto max-w-330 text-center p-6 bg-[rgba(255,255,255,1)] rounded-t-4xl ${isOrderPage ? "hidden min-[43.6875rem]:block" : ""}`}>
+        <footer className={`container mx-auto max-w-330 text-center p-6 bg-[rgba(255,255,255,1)] rounded-t-4xl ${isOrderPage ? "hidden min-[43.6875rem]:block" : ""} 
+        ${(isCartPage) ? "hidden min-[1200px]:block" : ""}`}>
             <div className="flex flex-wrap">
                 <div className="grow-0 shrink-0 basis-auto w-full min-[576px]:w-[50%] min-[992px]:w-[25%]"><a href="index.html"
                     className="text-black font-bold text-3xl mb-6 min-[992px]:mb-0 min-[992px]:text-start  block text-decoration-none">Qpick</a>

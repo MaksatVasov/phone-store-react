@@ -1,6 +1,6 @@
 
-import { DataContext } from "../components/DataContext";
-import { WishListContext } from "../components/WishListContext";
+import { DataContext } from "../context/DataContext";
+import { WishListContext } from "../context/WishListContext";
 import { useContext } from "react";
 
 export default function useWishListProducts() {

@@ -1,6 +1,6 @@
 import ratingStar from "../assets/images/global/star-card.png";
 import { Link } from "react-router-dom";
-import { WishListContext } from "./WishListContext";
+import { WishListContext } from "../context/WishListContext";
 import { useContext } from "react";
 
 export default function CatalogItem({ item }) {

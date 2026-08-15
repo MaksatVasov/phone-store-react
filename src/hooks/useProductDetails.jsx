@@ -1,7 +1,6 @@
 import { useContext, useMemo, useRef, useState } from "react";
-import { DataContext } from "../components/DataContext";
-import { UIContext } from "../components/UIContext";
-import { CartContext } from "../components/CartContext.jsx";
+import { DataContext } from "../context/DataContext";
+import { CartContext } from "../context/CartContext";
 import { useParams } from "react-router-dom";
 
 export default function useProductDetails() {

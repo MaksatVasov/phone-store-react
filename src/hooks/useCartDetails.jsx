@@ -1,5 +1,5 @@
-import { DataContext } from "../components/DataContext";
-import { CartContext } from "../components/CartContext";
+import { DataContext } from "../context/DataContext";
+import { CartContext } from "../context/CartContext";
 import { useContext, useMemo } from "react";
 
 export default function useCartDetails() {

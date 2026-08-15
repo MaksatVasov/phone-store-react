@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import binWhite from "../assets/images/global/bin-white.svg";
 import whatsAppLogoGreen from "../assets/images/global/whatsapp-product.png";
-import DescriptionItem from "./DescriptionItem";
-import Loader from "./Loader";
+import DescriptionItem from "../components/DescriptionItem.jsx";
+import Loader from "../components/Loader.jsx";
 import useProductDetails from "../hooks/useProductDetails.jsx";
 import { useContext, useState } from "react";
-import { WishListContext } from "./WishListContext.jsx";
+import { WishListContext } from "../context/WishListContext.jsx";
 
 export default function ProductPage() {
 
