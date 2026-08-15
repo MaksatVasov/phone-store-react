@@ -11,30 +11,26 @@ The project is currently under active development and is also part of my fronten
 ## Features
 
 * Dynamic product rendering from a mock API
-* Product catalog
-* Shopping cart
-* Wishlist
-* Product pages
-* Order form
-* Form validation
+* Product catalog, Shopping cart, and Wishlist
+* Interactive product pages
+* Order form with **validation**
+* **Leaflet map integration** showing the store location
+* **Live product search** with debounce optimization
+* **Animated typewriter effect** for search UI
+* Clean and scalable project architecture (Pages, Contexts, Hooks separation)
 * Responsive design for desktop, tablet, and mobile
 * Reducer-based cart and wishlist state management
-* Custom React hooks
-* Reusable helper functions
+* Custom React hooks & reusable helper functions
 
 ## Tech Stack
 
-* React
-* Vite
+* React & Vite
 * React Router
 * React Hook Form
+* **Leaflet** (React-Leaflet)
 * Tailwind CSS
 * Context API
-* `useState`
-* `useEffect`
-* `useMemo`
-* `useRef`
-* `useReducer`
+* `useState`, `useEffect`, `useMemo`, `useRef`, `useReducer`
 * Custom Hooks
 * Mock API
 
@@ -42,10 +38,10 @@ The project is currently under active development and is also part of my fronten
 
 The project is still in development. Planned features include:
 
-* Leaflet map integration
 * Order submission with a POST request
-* Three-language support
+* Saving delivery coordinates from the map
 * Zod-based form validation
+* Three-language support
 * Product review system
 * User registration and authentication
 * TypeScript
