@@ -13,7 +13,7 @@ The project is currently under active development and is also part of my fronten
 * Dynamic product rendering from a mock API
 * Product catalog, Shopping cart, and Wishlist
 * Interactive product pages
-* Order form with **validation**
+* Order form with validation and **POST request submission to MockAPI**
 * **Leaflet map integration** showing the store location
 * **Live product search** with debounce optimization
 * **Animated typewriter effect** for search UI
@@ -38,7 +38,6 @@ The project is currently under active development and is also part of my fronten
 
 The project is still in development. Planned features include:
 
-* Order submission with a POST request
 * Saving delivery coordinates from the map
 * Zod-based form validation
 * Three-language support
