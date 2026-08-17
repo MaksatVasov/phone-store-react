@@ -7,7 +7,7 @@ import DataProvider from "../context/DataContext";
 import WishListProvider from "../context/WishListContext";
 import CartProvider from "../context/CartContext";
 import Sidebar from "./SideBar";
-
+import FilterProvider from "../context/FilterContext";
 
 export default function Layout() {
 
@@ -17,14 +17,15 @@ export default function Layout() {
             <CartProvider>
                 <WishListProvider>
                     <UIProvider>
-                        <div className="flex flex-col min-h-screen">
+                        <FilterProvider>
+                            <div className="flex flex-col min-h-screen">
 
-                            <Header />
-                            <Sidebar />
-                            <Outlet />
-                            <Footer />
-                            
-                        </div>
+                                <Header />
+                                <Sidebar />
+                                <Outlet />
+                                <Footer />
+                            </div>
+                        </FilterProvider>
                         <ErrorWindow />
                     </UIProvider>
                 </WishListProvider>

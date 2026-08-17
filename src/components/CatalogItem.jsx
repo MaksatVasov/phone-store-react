@@ -5,7 +5,7 @@ import { useContext } from "react";
 
 export default function CatalogItem({ item }) {
     
-    const { title, rating, price, oldPrice, img, alt, id } = item;
+    const { title, rating, UIprice, UIoldPrice, img, alt, id } = item;
     const { dispatchWishlist, wishListItems } = useContext(WishListContext);
 
     const isLiked = wishListItems.some((itemId) => itemId === id);
@@ -42,8 +42,8 @@ export default function CatalogItem({ item }) {
                 <div className="flex justify-between gap-0.5 mb-2">
                     <h6 className="font-bold leading-none text-[clamp(12px,3vw,16px)]">{title}</h6>
                     <div className="flex flex-col min-h-10 shrink-0 items-end">
-                        <span className="text-[rgba(255,165,66,1)] font-bold leading-none text-[clamp(12px,3vw,16px)]">{price}</span>
-                        <small className="text-[rgba(255,165,66,1)] line-through">{oldPrice}</small>
+                        <span className="text-[rgba(255,165,66,1)] font-bold leading-none text-[clamp(12px,3vw,16px)]">{UIprice}</span>
+                        <small className="text-[rgba(255,165,66,1)] line-through">{UIoldPrice}</small>
                     </div>
                 </div>
 

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import cartEmptySmall from "../assets/images/cart-page/cart-empty-small.webp";
 import cartEmptyBig from "../assets/images/cart-page/cart-empty-big.webp";
 import truckIcon from "../assets/images/cart-page/Truck.png";
-import mapPreview from "../assets/images/cart-page/map.png";
+
 
 import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
@@ -23,12 +23,12 @@ function CheckoutBar() {
 
     return (
         <section
-            className="fixed bottom-0 left-1/2 z-1039 w-[calc(100%-32px)] max-w-285 -translate-x-1/2 rounded-4xl bg-white min-[1200px]:top-27 min-[1200px]:bottom-auto min-[1200px]:max-w-87.5 min-[1200px]:translate-x-1/2"
+            className="fixed bottom-0 left-1/2 z-999 w-[calc(100%-32px)] max-w-285 -translate-x-1/2 rounded-4xl bg-white min-[1200px]:top-27 min-[1200px]:bottom-auto min-[1200px]:max-w-87.5 min-[1200px]:translate-x-1/2"
             aria-label="Итог заказа"
         >
             <div className="flex justify-between px-6 py-4">
                 <p className="m-0 text-base font-semibold">ИТОГО</p>
-                <output id="cart-sum" className="m-0 text-base font-semibold">{cartSum + " $"}</output>
+                <output id="cart-sum" className="m-0 text-base font-semibold">{cartSum.toFixed(2) + " $"}</output>
             </div>
 
             <Link
@@ -74,7 +74,9 @@ function DeliveryPanel() {
                     checked={isDelivery}
                 />
                 <span
-                    className="flex h-6 w-6 items-center justify-center rounded-[5px] border-2 border-black bg-[rgba(163,158,158,0.2)] after:content-['✓'] after:opacity-0 after:transition-opacity after:duration-300 peer-checked:border-black peer-checked:bg-black peer-checked:text-white peer-checked:after:opacity-100"
+                    className="flex h-6 w-6 items-center justify-center rounded-[5px] border-2 border-black
+                     bg-[rgba(163,158,158,0.2)] after:content-['✓'] after:opacity-0 after:transition-opacity after:duration-300
+                      peer-checked:border-black peer-checked:bg-black peer-checked:text-white peer-checked:after:opacity-100"
                     aria-hidden="true"
                 />
             </div>
@@ -143,7 +145,7 @@ export default function CartPage() {
 
     return (
         <main
-            className={`relative ${containerClassName} flex grow flex-col pb-30 min-[1200px]:pb-5`}
+            className={`relative ${containerClassName} flex grow flex-col pb-30 min-[1200px]:pb-96`}
         >
             {(cart.length > 0) ? <CartContent /> : <EmptyCartState />}
 

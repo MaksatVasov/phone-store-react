@@ -10,7 +10,7 @@ export default function CartItem({ item }) {
 
     const { dispatchCart } = useContext(CartContext);
 
-    const { title, price, img, quantity, alt, id } = item;
+    const { title, UIprice, img, quantity, alt, id, price } = item;
 
     return (
         <div className="relative mb-4 h-full rounded-3xl border-none bg-white shadow-md">
@@ -24,7 +24,7 @@ export default function CartItem({ item }) {
 
                     <div className="flex flex-col justify-center">
                         <h2 className="m-0 text-[1rem] font-medium">{title}</h2>
-                        <p className="m-0 text-[1rem] font-semibold">{price + " $"}</p>
+                        <p className="m-0 text-[1rem] font-semibold">{UIprice}</p>
                     </div>
 
                     <div className="ml-auto flex items-start">
@@ -73,7 +73,7 @@ export default function CartItem({ item }) {
 
                     <div className="flex flex-col">
                         <p className="m-0 text-[0.9rem] font-semibold">
-                            {price * quantity + " $"}
+                            {Number(price * quantity).toFixed(2) + " $"}
                         </p>
                     </div>
                 </div>

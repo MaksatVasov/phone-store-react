@@ -4,19 +4,19 @@ import glassCase from "../assets/images/home-page/glass.webp";
 import siliconeCase from "../assets/images/home-page/leather.webp";
 import leatherCase from "../assets/images/home-page/silicone.webp";
 import Loader from "../components/Loader";
-import CatalogItem from "../components/CatalogItem";
-
+import FiltersSidebar from "../components/FilterSidebar";
 import { useContext, useMemo } from "react";
 
 import { DataContext } from "../context/DataContext";
 import { UIContext } from "../context/UIContext";
 import { Link } from "react-router-dom";
+import CategorySection from "../components/CategorySection";
 
 export default function HomePage() {
 
     const { products, isLoading, downloadInfo } = useContext(DataContext);
 
-    const { setError, error } = useContext(UIContext);
+    const { setFilterSidebar } = useContext(UIContext);
 
     const groupedCategories = useMemo(() => {
 
@@ -35,7 +35,7 @@ export default function HomePage() {
                 objOfCategories[category].push(item);
             }
 
-        })
+        });
 
         return objOfCategories;
 
@@ -54,13 +54,15 @@ export default function HomePage() {
         </main>
     )
 
-    const { "wireless-headphones": wireless, "wired-headphones": wired } = groupedCategories;
 
+
+    const { "wireless-headphones": wireless, "wired-headphones": wired } = groupedCategories;
 
 
 
     return (
         <main className="container mx-auto max-w-330 grow">
+
             <section className="mb-12 px-6">
                 <picture>
                     <source media="(min-width: 992px)" srcSet={desktopBg} />
@@ -96,27 +98,14 @@ export default function HomePage() {
             </section>
 
             <div className="container flex justify-start px-6 mb-8">
-                <button className="text-black bg-white font-bold p-2 rounded-4xl" type="button">⚙️Настройки каталога</button>
+                <button onClick={() => setFilterSidebar((prev) => !prev)} className="text-black bg-white font-bold p-2 rounded-4xl" type="button">⚙️Настройки каталога</button>
             </div>
 
-            <section>
-                <h3 className="text-[rgba(131,131,131,1)] text-2xl font-semibold mb-6 px-6">Наушники</h3>
+            <CategorySection title={"Наушники"} items={wired} categoryType={"wired-headphones"} />
 
-                <div className="flex flex-nowrap lg:flex-wrap overflow-auto px-6 py-4">
-                    {wired.map((item) => <CatalogItem key={item.id} item={item} />)}
-                </div>
+            <CategorySection title={"Беспроводные"} items={wireless} categoryType={"wireless-headphones"}  />
 
-
-            </section>
-
-            <section>
-
-                <h3 className="text-[rgba(131,131,131,1)] text-2xl font-semibold mb-6 px-6" >Беспроводные</h3>
-
-                <div className="flex flex-nowrap lg:flex-wrap overflow-auto px-6 py-4">
-                    {wireless.map((item) => <CatalogItem key={item.id} item={item} />)}
-                </div>
-            </section>
+            <FiltersSidebar />
 
         </main>
     )

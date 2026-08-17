@@ -9,10 +9,10 @@ export function UIProvider({ children }) {
 
     const [sidebar, setSidebar] = useState(false);
 
-
+    const [filterSidebar, setFilterSidebar] = useState(false);
     
     return (
-        <UIContext.Provider value={{setError, error, sidebar, setSidebar}}>
+        <UIContext.Provider value={{setError, error, sidebar, setSidebar, filterSidebar, setFilterSidebar}}>
             {children}
         </UIContext.Provider>
     )

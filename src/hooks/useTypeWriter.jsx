@@ -1,5 +1,3 @@
-
-
 import { useState, useEffect } from 'react';
 
 export default function useTypewriter(words, typingSpeed = 100, deletingSpeed = 50, pauseTime = 2000) {
