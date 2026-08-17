@@ -4,20 +4,20 @@ A responsive e-commerce phone store built with React and Vite.
 
 ## About
 
-QPICK is a front-end e-commerce project focused on building a realistic shopping experience with React.
-
-The project is currently under active development and is also part of my frontend learning journey.
+QPICK is a front-end e-commerce project focused on building a realistic shopping experience. This project marks my active progression from Vanilla JavaScript to modern React development. The main goal is not only to build a functional application, but to master component architecture, state management, routing, and scalable project structure while working with real-world scenarios.
 
 ## Features
 
 * Dynamic product rendering from a mock API
+* **Smart product filtering** by price range and categories
+* **Advanced pricing logic** (separation of UI formatting and raw calculation values)
 * Product catalog, Shopping cart, and Wishlist
 * Interactive product pages
 * Order form with validation and **POST request submission to MockAPI**
 * **Leaflet map integration** showing the store location
 * **Live product search** with debounce optimization
 * **Animated typewriter effect** for search UI
-* Clean and scalable project architecture (Pages, Contexts, Hooks separation)
+* Clean and scalable project architecture (Pages, Contexts, Hooks separation, DRY principles)
 * Responsive design for desktop, tablet, and mobile
 * Reducer-based cart and wishlist state management
 * Custom React hooks & reusable helper functions
@@ -50,10 +50,4 @@ The project is still in development. Planned features include:
 
 🚧 **Work in Progress**
 
-The project is not deployed yet. Deployment is planned after the main features are completed and the project reaches a production-ready state.
-
-## Learning Goals
-
-This project is part of my progression from Vanilla JavaScript to modern React development.
-
-The goal is not only to build the application, but also to improve my understanding of component architecture, state management, routing, forms, reusable logic, and scalable project structure.
+The application is actively being developed and refined. Deployment is planned once the core feature set is complete and the project reaches a production-ready state.
