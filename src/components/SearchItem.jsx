@@ -5,7 +5,7 @@ export default function SearchItem({ item }) {
         <div className="relative flex items-center gap-3 p-2 hover:bg-gray-100 transition-colors rounded-md">
             
             <img 
-                src={item.img} 
+                src={`/images/${item.img}`} 
                 className="w-12.5 h-12.5 object-contain" 
                 alt={item.title} 
             />
@@ -15,7 +15,7 @@ export default function SearchItem({ item }) {
                     {item.title}
                 </p>
                 <p className="m-0 text-sm text-gray-500">
-                    {item.price}
+                    {item.UIprice}
                 </p>
             </div>
 

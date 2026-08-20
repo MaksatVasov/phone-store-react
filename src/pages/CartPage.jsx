@@ -2,24 +2,19 @@ import { Link } from "react-router-dom";
 import cartEmptySmall from "../assets/images/cart-page/cart-empty-small.webp";
 import cartEmptyBig from "../assets/images/cart-page/cart-empty-big.webp";
 import truckIcon from "../assets/images/cart-page/Truck.png";
-
-
 import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
 import useCartDetails from "../hooks/useCartDetails";
 import Map from "../components/Map";
 import CartItem from "../components/CartItem";
+import { DELIVERY_PRICE } from "../helpers/deliveryPrice";
 
-const containerClassName =
-    "container mx-auto w-full px-3 max-w-330";
+const containerClassName = "container mx-auto w-full px-3 max-w-330";
 
 function CheckoutBar() {
-
     const { sum } = useCartDetails();
-
     const { isDelivery } = useContext(CartContext);
-
-    const cartSum = (isDelivery) ? Number(sum) + 499 : sum;
+    const deliveryPrice = (isDelivery) ? DELIVERY_PRICE : 0;
 
     return (
         <section
@@ -28,7 +23,7 @@ function CheckoutBar() {
         >
             <div className="flex justify-between px-6 py-4">
                 <p className="m-0 text-base font-semibold">ИТОГО</p>
-                <output id="cart-sum" className="m-0 text-base font-semibold">{cartSum.toFixed(2) + " $"}</output>
+                <output id="cart-sum" className="m-0 text-base font-semibold">${(Number(sum) + deliveryPrice).toFixed(2)}</output>
             </div>
 
             <Link
@@ -42,7 +37,6 @@ function CheckoutBar() {
 }
 
 function DeliveryPanel() {
-
     const { isDelivery, setDelivery } = useContext(CartContext);
 
     return (
@@ -52,7 +46,7 @@ function DeliveryPanel() {
         >
             <div className={`flex justify-between px-6 py-4 ${(isDelivery) ? "opacity-100" : "opacity-0"} `}>
                 <p className="m-0 text-base font-semibold">Доставка</p>
-                <span className="text-base">499 $</span>
+                <span className="text-base">${DELIVERY_PRICE}</span>
             </div>
 
             <div id="map" className="h-36.5 w-full">
@@ -85,7 +79,6 @@ function DeliveryPanel() {
 }
 
 function CartContent() {
-
     const { cartItems } = useCartDetails();
 
     return (
@@ -138,19 +131,13 @@ function EmptyCartState() {
 }
 
 export default function CartPage() {
-
-    const { cart, dispatchCart } = useContext(CartContext);
-
-
+    const { cart } = useContext(CartContext);
 
     return (
         <main
-            className={`relative ${containerClassName} flex grow flex-col pb-30 min-[1200px]:pb-96`}
+            className={`relative ${containerClassName} flex grow flex-col pb-30`}
         >
             {(cart.length > 0) ? <CartContent /> : <EmptyCartState />}
-
-
-
         </main>
     );
 }

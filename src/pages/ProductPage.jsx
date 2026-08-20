@@ -11,7 +11,8 @@ export default function ProductPage() {
 
     const [isOpen, setOpen] = useState(false);
     const { dispatchWishlist, wishListItems } = useContext(WishListContext)
-    const { specsArr, curProduct, downloadInfo, isLoading, isPressed, addToCart } = useProductDetails();
+    const { specsArr, curProduct, downloadInfo, isLoading, isPressed, addToCart, handleBuyNow } = useProductDetails();
+
 
 
 
@@ -28,7 +29,7 @@ export default function ProductPage() {
                     <p className="text-2xl">Попробуйте позже</p>
                     <div className="flex gap-1">
                         <button onClick={() => downloadInfo()} className="p-2.5 cursor-pointer bg-[#6c757d] hover:bg-[#5c636a] px-3 py-1.5 rounded-md text-white" type="button">Повторить попытку</button>
-                        <Link to="/" className="cursor-pointer bg-[#0d6efd] hover:bg-[#0b5ed7] px-3 py-1.5 rounded-md text-white">
+                        <Link to={"/"} className="cursor-pointer bg-[#0d6efd] hover:bg-[#0b5ed7] px-3 py-1.5 rounded-md text-white">
                             На главную
                         </Link>
                     </div>
@@ -38,7 +39,7 @@ export default function ProductPage() {
         )
     }
 
-    const { title, alt, price, oldPrice, img, id: idProduct } = curProduct;
+    const { title, alt, oldPrice, img, id: idProduct, UIprice, UIoldPrice } = curProduct;
 
     const isLiked = wishListItems.some((itemId) => itemId === idProduct);
     return (
@@ -64,8 +65,8 @@ export default function ProductPage() {
                     <h6 className="font-bold m-0 text-[clamp(12px,3vw,16px)] leading-none">{title}</h6>
 
                     <div className="flex flex-col text-right gap-1">
-                        <span className="font-bold leading-none text-[clamp(12px,3vw,16px)] text-[rgba(255,165,66,1)]">{price}</span>
-                        {oldPrice && <small className="font-bold leading-none text-[clamp(10px, 2.8vw, 14px)] text-[rgba(255,206,127,1)] line-through">{oldPrice}</small>}
+                        <span className="font-bold leading-none text-[clamp(12px,3vw,16px)] text-[rgba(255,165,66,1)]">{UIprice}</span>
+                        {oldPrice && <small className="font-bold leading-none text-[clamp(10px, 2.8vw, 14px)] text-[rgba(255,206,127,1)] line-through">{UIoldPrice}</small>}
                     </div>
                 </div>
             </section>
@@ -94,7 +95,7 @@ export default function ProductPage() {
                     >
                         <img className="w-5.5 h-5.25" src={binWhite} alt="Избранное" />
                     </button>
-                    <Link className="block no-underline shadow-[0_1rem_3rem_rgba(0,0,0,0.175)] grow-2 bg-[rgba(16,16,16,1)] text-white p-4 self-center text-center border-0 rounded-2xl">Купить сейчас</Link>
+                    <button onClick={(e) => handleBuyNow(e)} className="block no-underline shadow-[0_1rem_3rem_rgba(0,0,0,0.175)] grow-2 bg-[rgba(16,16,16,1)] text-white p-4 self-center text-center border-0 rounded-2xl">Купить сейчас</button>
                     <button
                         className="bg-[rgba(16,16,16,1)] text-white block rounded-2xl shadow-[0_1rem_3rem_rgba(0,0,0,0.175)] p-4 self-center border-0 transition-transform duration-200 hover:scale-105 active:scale-95"
                         type="button"

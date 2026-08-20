@@ -1,6 +1,6 @@
 
 
-export function defaultErrorState(){
+export function defaultErrorState() {
 
-    return {isErrorOpen: false, message: "", onRetry: null};
+    return { isError: false, message: "" };
 }

@@ -20,7 +20,6 @@ export default function CatalogItem({ item }) {
         <div className="relative basis-[58%] lg:basis-[33%] grow lg:grow-0 shrink-0 p-1.5 transition-transform duration-100 hover:scale-[1.02]">
             <div className="flex flex-col bg-white rounded-4xl p-4 shadow-[0_0.5rem_1rem_rgba(0,0,0,0.15)]">
 
-                {/* Аккуратное и чистое сердечко с динамическими атрибутами */}
                 <div className="flex justify-start">
                     <svg
                         onClick={handleToggleWishlist}

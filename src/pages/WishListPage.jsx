@@ -10,9 +10,6 @@ import useWishListProducts from "../hooks/useWishListProducts";
 
 export default function WishListPage() {
 
-
-    const { dispatchWishlist, wishListItems } = useContext(WishListContext);
-
     const wishList = useWishListProducts();
 
 

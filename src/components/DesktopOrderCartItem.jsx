@@ -16,7 +16,7 @@ export function DesktopOrderCartItem({item}) {
             </div>
 
             <output className="cart-order-tablet-desktop-sum font-medium text-right self-start">
-                {price * quantity} ₸
+                ${(price * quantity).toFixed(2)}
             </output>
         </div>
     );

@@ -24,13 +24,13 @@ export function useFilterSideBarDetails() {
     const onSubmit = (data) => {
 
 
-        console.log(data)
+        // console.log(data)
         setFilterObj(data);
 
     }
 
 
-    console.log(filterObj);
+    // console.log(filterObj);
 
 
     return { filterSidebar, setFilterSidebar, register, handleSubmit, setValue, watch, onSubmit, setFilterObj, reset};

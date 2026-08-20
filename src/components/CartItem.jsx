@@ -73,7 +73,7 @@ export default function CartItem({ item }) {
 
                     <div className="flex flex-col">
                         <p className="m-0 text-[0.9rem] font-semibold">
-                            {Number(price * quantity).toFixed(2) + " $"}
+                            ${Number(price * quantity).toFixed(2)}
                         </p>
                     </div>
                 </div>

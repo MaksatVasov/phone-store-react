@@ -1,13 +1,13 @@
 import { useContext, useMemo, useRef, useState } from "react";
 import { DataContext } from "../context/DataContext";
 import { CartContext } from "../context/CartContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function useProductDetails() {
 
     const { products, downloadInfo, isLoading } = useContext(DataContext);
     const { dispatchCart } = useContext(CartContext);
-
+    const navigate = useNavigate();
     const { id } = useParams();
 
 
@@ -30,11 +30,11 @@ export default function useProductDetails() {
 
     const [isPressed, setPress] = useState(false);
 
-    const isLocked = useRef(false); 
+    const isLocked = useRef(false);
 
-    function addToCart(idProduct){
+    function addToCart(idProduct) {
 
-        if(isLocked.current) return;
+        if (isLocked.current) return;
 
         dispatchCart({ type: "ADD_TO_CART", payload: { id: idProduct } });
         setPress(true);
@@ -47,6 +47,22 @@ export default function useProductDetails() {
     }
 
 
-    return { specsArr, curProduct, downloadInfo, isLoading, isPressed, isLocked, addToCart }
+    function handleBuyNow(e) {
+
+        e.preventDefault();
+
+        navigate("/order", {
+            state: {
+                buyNowItem: {
+                    ...curProduct,
+                    quantity: 1
+                }
+            }
+        });
+
+
+    }
+
+    return { specsArr, curProduct, downloadInfo, isLoading, isPressed, isLocked, addToCart, handleBuyNow }
 
 }

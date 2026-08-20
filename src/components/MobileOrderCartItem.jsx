@@ -14,11 +14,11 @@ export function MobileOrderCartItem({ item}) {
                     <span className="cart-product-quantity font-medium mr-1">{quantity}x</span>
                     <span className="cart-product-name font-medium">{title}</span>
                 </p>
-                <p className="cart-product-price m-0 font-medium">{price}</p>
+                <p className="cart-product-price m-0 font-medium">{UIprice}</p>
             </div>
 
             <output className="cart-product-sum font-bold self-start break-all text-right">
-                {price * quantity} ₸
+                ${(price * quantity).toFixed(2)}
             </output>
         </div>
     );

@@ -6,6 +6,8 @@ import CassesPage from "./pages/CassesPage";
 import WishListPage from "./pages/WishListPage";
 import CartPage from "./pages/CartPage";
 import OrderPage from "./pages/OrderPage";
+import ContactsPage from "./pages/ContactsPage";
+import TermsPage from "./pages/TermsPage";
 
 export const router = createBrowserRouter([{
     path: "/",
@@ -34,6 +36,14 @@ export const router = createBrowserRouter([{
         {
             path: "order",
             element: <OrderPage />
+        },
+        {
+            path: "contacts",
+            element: <ContactsPage />
+        },
+        {
+            path: "terms",
+            element: <TermsPage />
         }
     ]
 }])

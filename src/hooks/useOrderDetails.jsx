@@ -1,18 +1,35 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import useCartDetails from "./useCartDetails";
 import { CartContext } from "../context/CartContext";
 import { useForm } from "react-hook-form";
-import promocodes from "../data/phoneCatalog/promocodes.json";
+import promocodes from "../data/details/promocodes.json";
+import { DELIVERY_PRICE } from "../helpers/deliveryPrice";
+import { DataContext } from "../context/DataContext";
+import { defaultErrorState } from "../helpers/errorHelpers";
+import { useLocation } from "react-router-dom";
 
 export default function useOrderDetails() {
 
+    const { isLoading } = useContext(DataContext);
+    const [isSending, setSending] = useState(false);
     const [isCityOpen, setCityOpen] = useState(false);
     const [isPaymentOpen, setPaymentOpen] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-    const [appliedPromo, setPromo] = useState(null);
+    const [appliedPromo, setPromo] = useState(JSON.parse(localStorage.getItem("promo")));
+    const [sendingError, setSendingError] = useState(defaultErrorState());
+    const [orderID, setID] = useState(null);
+    const [toastMove, setToastMove] = useState(false);
 
-    const { cartItems, sum } = useCartDetails();
+    
+    const { cartItems: contextCartItems, sum: contextSum } = useCartDetails();
     const { isDelivery, dispatchCart } = useContext(CartContext);
+
+    const timer1 = useRef(null);
+    const timer2 = useRef(null);
+
+    useEffect(() => {
+        localStorage.setItem("promo", JSON.stringify(appliedPromo));
+    }, [appliedPromo]);
 
     const { register, handleSubmit, setValue, clearErrors, watch, reset, formState: { errors } } = useForm({
         defaultValues: {
@@ -24,31 +41,42 @@ export default function useOrderDetails() {
             floor: "",
             flat: "",
             phone: "",
-            code: ""
+            code: (appliedPromo?.code) ? appliedPromo.code : ""
         },
         mode: "onBlur"
     });
 
-    const currentCity = watch("locationInput");
-    const currentPayment = watch("paymentInput");
-    // const currentCode = watch("code");
+    
+    const location = useLocation();
+    const buyNowItem = location?.state?.buyNowItem;
 
-    const cartSum = isDelivery ? Number(sum) + 499 : Number(sum);
+    
+    
+    
+    const activeCartItems = buyNowItem ? [buyNowItem] : contextCartItems;
+    const activeSum = buyNowItem ? Number(buyNowItem.price) : contextSum;
 
+    const deliveryPrice = (isDelivery) ? DELIVERY_PRICE : 0;
 
-
+    
     let promoSum = 0;
     if (appliedPromo) {
-        promoSum = appliedPromo.type === "fixed" ? appliedPromo.value : (cartSum * appliedPromo.value) / 100;
+        promoSum = Number(appliedPromo.type === "fixed" ? appliedPromo.value : (activeSum * appliedPromo.value) / 100).toFixed(2);
     }
 
-    const overallSum = Math.max(0, Number((cartSum - promoSum).toFixed(2)));
+    
+    const overallSum = Math.max(0, Number((activeSum - promoSum + deliveryPrice).toFixed(2)));
+
+    const currentCity = watch("locationInput");
+    const currentPayment = watch("paymentInput");
 
     const onSubmit = async (data) => {
+        setSending(true);
+
         const orderPayload = {
             ...data,
-            items: cartItems,
-            totalPaid: overallSum,
+            items: activeCartItems, 
+            totalPaid: overallSum,  
             discountApplied: promoSum
         };
 
@@ -60,14 +88,36 @@ export default function useOrderDetails() {
             });
 
             if (response.ok) {
+                setSendingError(defaultErrorState());
                 setIsSuccess(true);
                 reset();
-                dispatchCart("CLEAR_CART");
+                
+                
+                if (!buyNowItem) {
+                    dispatchCart({ type: "CLEAR_CART" });
+                }
+                
+                setPromo(null);
+                const orderObj = await response.json();
+                setID(orderObj.id);
             } else {
-                alert('Ошибка при отправке.');
+                clearTimeout(timer1.current);
+                clearTimeout(timer2.current);
+                setToastMove(true);
+                setSendingError({ isError: true, message: "Сервер недоступен. Попробуйте позже." });
+                timer1.current = setTimeout(() => setToastMove(false), 3000);
+                timer2.current = setTimeout(() => setSendingError(defaultErrorState()), 4500);
             }
         } catch (error) {
+            clearTimeout(timer1.current);
+            clearTimeout(timer2.current);
+            setToastMove(true);
+            setSendingError({ isError: true, message: "Сервер недоступен. Попробуйте позже." });
+            timer1.current = setTimeout(() => setToastMove(false), 3000);
+            timer2.current = setTimeout(() => setSendingError(defaultErrorState()), 4500);
             console.error(error);
+        } finally {
+            setSending(false);
         }
     };
 
@@ -77,26 +127,19 @@ export default function useOrderDetails() {
     };
 
     return {
-        isCityOpen,
-        setCityOpen,
-        isPaymentOpen,
-        setPaymentOpen,
-        cartItems,
-        cartSum,
-        isDelivery,
-        register,
+        isCityOpen, setCityOpen,
+        isPaymentOpen, setPaymentOpen,
+        activeCartItems, 
+        activeSum,       
+        isDelivery, register,
         handleSubmit: handleSubmit(onSubmit),
         handleClick,
-        currentCity,
-        currentPayment,
-        errors,
-        promocodes,
-        promoSum,
-        overallSum,
-        isSuccess,
-        appliedPromo,
-        setPromo,
-        setValue,
-        clearErrors
+        currentCity, currentPayment,
+        errors, promocodes,
+        promoSum, overallSum,
+        isSuccess, appliedPromo, setPromo, setValue, clearErrors,
+        isLoading, isSending, sendingError, orderID,
+        toastMove, setToastMove,
+        deliveryPrice
     };
 }
